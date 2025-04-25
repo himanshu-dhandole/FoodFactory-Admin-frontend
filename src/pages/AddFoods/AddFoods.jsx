@@ -34,19 +34,19 @@ function AddFoods() {
       const res = await axios.post("http://localhost:8080/api/food", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      if(res.status === 200) {
-        toast.success("Food added") ;
+      if (res.status === 200) {
+        toast.success("Food added");
         setData({
           name: "",
           description: "",
           category: "",
           price: "",
-        }) ;
-        setImage(assets.upload) ;
+        });
+        setImage(assets.upload);
       }
     } catch (e) {
-      toast.error("error in backend api") ;
-     }
+      toast.error("error in backend api");
+    }
   };
 
   return (
@@ -66,7 +66,11 @@ function AddFoods() {
                 <div className="mb-4 text-center">
                   <label htmlFor="image" className="d-block">
                     <img
-                      src={image ? URL.createObjectURL(image) : assets.upload}
+                      src={
+                        image && typeof image === "object"
+                          ? URL.createObjectURL(image)
+                          : image || assets.upload
+                      }
                       alt="Upload"
                       className="img-thumbnail shadow-sm"
                       style={{
